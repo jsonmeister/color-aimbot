@@ -16,7 +16,7 @@
 using namespace colorbot;
 
 constexpr uint16_t STEELSERIES_VID = 0x1038;
-constexpr uint16_t RIVAL3_PID = 0x1824;
+constexpr uint16_t RIVAL3_PID = 0x1825;
 
 
 struct TriggerSettings {
@@ -193,10 +193,6 @@ int main() {
                     config = Config::load(configPath);
                     aim = config.profiles[config.activeProfile]; // Update active aim settings directly
                     
-                    // Update detector colors if changed
-                    // For now assuming we just re-instantiate or update (Detector needs update method or just simpler)
-                    // detector = ColorDetector(config.color.lower, config.color.upper); // Recreating detector is expensive? Structuring element is cached.
-                    // Ideally we add setColors to Detector. For now, creating new is fast enough.
                     detector = ColorDetector(config.color.lower, config.color.upper);
                     
                     lastConfigTime = currentWriteTime;
@@ -211,9 +207,6 @@ int main() {
             std::cout << (enabled ? "  [ON]\n" : "  [OFF]\n");
         }
         
-        // F2 Cycle (Legacy override, might conflict with UI so maybe remove or keep sync?)
-        // If UI is primary, F2 locally changes but config file might stay. 
-        // Let's keep F2 for now.
         if (GetAsyncKeyState(VK_F2) & 1) {
             if (config.activeProfile == "legit") config.activeProfile = "semi";
             else if (config.activeProfile == "semi") config.activeProfile = "rage";

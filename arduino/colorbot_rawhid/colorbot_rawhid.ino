@@ -1,4 +1,5 @@
-#include "HID-Project.h"
+#include <HID-Project.h>
+#include <HID-Settings.h>
 
 // most stupid rng i've ever seen but works
 namespace {
