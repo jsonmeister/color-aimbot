@@ -1,0 +1,23 @@
+# Build directories
+build/
+x64/
+Release/
+Debug/
+.vs/
+out/
+
+# C++
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.suo
+
+# Node
+node_modules/
+dist/
+dist_electron/
+.DS_Store
+
+# Local Config
+config.json
