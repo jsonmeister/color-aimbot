@@ -107,7 +107,6 @@ Config Config::load(const std::string& path) {
     cfg.profiles["semi"] = parseProfile("semi");
     cfg.profiles["rage"] = parseProfile("rage");
 
-    // Visuals
     std::string vSection = "\"visuals\"";
     size_t vPos = json.find(vSection);
     if (vPos != std::string::npos) {
@@ -135,9 +134,8 @@ Config Config::load(const std::string& path) {
     return cfg;
 }
 
-void Config::save(const std::string& path) const {
+void Config::save(const std::string& /*path*/) const {
     // Basic save not implemented fully as C++ usually reads. 
     // UI handles the writing.
-}
 }
 }

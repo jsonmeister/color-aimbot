@@ -5,7 +5,9 @@ const fs = require('fs');
 // Assuming the exe is in root/build/Release, config is in root.
 // During dev: ui/electron/main.js runs, config is in ../../config.json?
 // Let's settle on: config.json is in the CWD of the process.
-const CONFIG_PATH = path.join(process.cwd(), 'config.json');
+// Backend (Release) is in root/build/Release
+// UI (during dev) runs in root/colorbot/ui
+const CONFIG_PATH = path.resolve(__dirname, '../../build/Release/config.json');
 
 function createWindow() {
     const win = new BrowserWindow({

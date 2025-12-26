@@ -250,23 +250,16 @@ int main() {
              if (distToContour >= 0) inTriggerZone = true;
         }
         
-        if (config.debugMode) {
-             // ... Debug drawing logic (simplified to save lines) ...
-        }
-        
         // --- Triggerbot ---
         if (enabled && (GetAsyncKeyState(VK_MENU) & 0x8000) && target.valid) {
-           // ... (Existing trigger logic) ...
-           // For brevity, assuming existing logic or copy-paste
-           // Using simplified version here to fit in replacement
-            auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastTrigger).count();
-            if (elapsed > 150) {
-                 if (inTriggerZone) {
-                    Sleep(std::uniform_int_distribution<>(trigger.minDelay, trigger.maxDelay)(gen));
-                    mouse.click();
-                    lastTrigger = now;
-                 }
-            }
+             auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastTrigger).count();
+             if (elapsed > 150) {
+                  if (inTriggerZone) {
+                     Sleep(std::uniform_int_distribution<>(trigger.minDelay, trigger.maxDelay)(gen));
+                     mouse.click();
+                     lastTrigger = now;
+                  }
+             }
         }
 
         // --- Aimbot & RCS ---
@@ -274,7 +267,6 @@ int main() {
         bool shouldAim = enabled && (aimKey || aim.always_active);
 
         if (shouldAim && target.valid) {
-            // Humanization Update
              if (aim.humanize) {
                 patternTick++;
                 if (patternTick > 10) {
@@ -299,28 +291,24 @@ int main() {
             }
         }
 
-        // --- Standalone RCS ---
-        // Basic linear pull down when shooting (Left Click) if targeting
-        // Note: Real RCS needs to know if we are firing.
         if (enabled && aim.rcs && (GetAsyncKeyState(VK_LBUTTON) & 0x8000)) {
-             // Simple vertical pull down
-             // We can check if we moved mouse recently or just constantly pull
-             // Only pull if we are NOT aiming (aimbot handles recoil by tracking target usually)
-             // OR if aimbot is not doing enough.
-             // If aimbot is active, it tracks target which implicitly fights recoil if target moves up relative to crosshair?
-             // Actually, in games, crosshair goes up, target stays. So target Y becomes higher (relative to center).
-             // Aimbot sees target "above" center? No, crosshair goes UP. Target effectively goes DOWN relative to center.
-             // So Aimbot SHOULD see target at Y < centerY (negative yDiff).
-             // Then Aimbot moves mouse DOWN (negative y) to compensate.
-             // So Aimbot NATURALLY controls recoil if tracking is fast enough!
-             // "RCS" usually adds EXTRA pull or helps when aimbot smoothing is high.
-             
-             // Let's add explicit extra pull down for "RCS"
-             mouse.move(0, 2); // Constant pull down
-             Sleep(10); // Throttle
+             mouse.move(0, 2);
+             Sleep(10);
         }
         
-        Sleep(1);
+        if (config.debugMode) {
+             if (config.visuals.draw_fov) {
+                 cv::ellipse(frame, cv::Point(centerX, centerY), cv::Size(aim.xFov, aim.yFov), 0, 0, 360, cv::Scalar(0, 255, 0), 1);
+             }
+             if (target.valid && config.visuals.draw_target) {
+                 cv::rectangle(frame, target.rect, cv::Scalar(0, 0, 255), 2);
+                 cv::line(frame, cv::Point(centerX, centerY), cv::Point(target.x, target.y), cv::Scalar(255, 0, 0), 1);
+             }
+             cv::imshow("Debug", frame);
+             if (cv::waitKey(1) == 27) break;
+        } else {
+            Sleep(1);
+        }
     }
     
     if (config.debugMode) cv::destroyAllWindows();

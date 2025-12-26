@@ -24,7 +24,7 @@ public:
 
 private:
     hid_device* device_ = nullptr;
-    uint8_t buffer_[64] = {0};
+    uint8_t buffer_[65] = {0};
 };
 
 }
