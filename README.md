@@ -1,6 +1,6 @@
-# JSONRANT
+# Json's Colorbot
 
-**JSONRANT** is a hybrid computer vision software suite designed for input simulation research. It utilizes a decoupled architecture where a high-level Electron interface communicates with a low-latency C++ backend via asynchronous file I/O, ensuring separation of concerns and modularity.
+**Json's Colorbot** is a hybrid computer vision software suite designed for input simulation research. It utilizes a decoupled architecture where a high-level Electron interface communicates with a low-latency C++ backend via asynchronous file I/O, ensuring separation of concerns and modularity.
 
 before anything else, this is a proof of concept for a research project. it is not intended to be used for any malicious purposes. do not trust pasters.
 

@@ -19,8 +19,8 @@ export function Sidebar({ tabs, activeTab, onTabChange, status = "UNDETECTED" }:
     return (
         <div className="w-64 h-full flex flex-col bg-black/85 backdrop-blur-xl border-r border-white/5">
             <div className="p-6 pt-10">
-                <h1 className="text-2xl font-bold text-white tracking-wider flex items-center gap-2">
-                    JSONRANT
+                <h1 className="text-xl font-bold text-white tracking-wider flex items-center gap-2 uppercase">
+                    Json's Colorbot
                 </h1>
                 <p className="text-xs text-zinc-500 mt-1 uppercase tracking-widest font-semibold flex items-center gap-1">
                     <Shield size={10} /> Private Build
